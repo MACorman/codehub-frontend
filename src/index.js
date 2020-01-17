@@ -2,25 +2,28 @@ document.addEventListener('DOMContentLoaded', function(){
     const languagesUrl = "http://localhost:3000/languages"
     const videosUrl = "http://localhost:3000/videos"
     const commentsUrl = "http://localhost:3000/comments"
-
-    let mainHeader = document.getElementById('header-container')
-    let mainBody = document.getElementById('body-container')
     let username
-    let langDiv = document.createElement("div")
-    langDiv.id = "language-container"
-    let welcomeDiv = document.createElement("div")
-    welcomeDiv.innerHTML = `
-        <h1>CodeHub</h1>
-        <h3>Welcome to CodeHub</h3>
-        <h4>A programming knowledge destination</h4>
-        <h4>Your one stop shop for all your programming needs</h4>
-        <h4>15 minutes could teach you 15% or more</h4>
-    `
 
-    
-    
+    let mainHeader = document.getElementById('header-container')   
+    let mainBody = document.getElementById('body-container')
 
     getLanguage()
+
+    let langDiv = document.createElement("div")
+    langDiv.id = "nav-bar"
+    
+
+    let welcomeDiv = document.createElement("div")
+    welcomeDiv.id = 'welcome-container'
+    welcomeDiv.innerHTML = `
+        <h3 id='wel-message'>CodeHub</h3>
+        <h4 class="slogan">Fifteen minutes could teach you fifteen percent or more.</h4>
+        <p class='block-text'> 
+            His having within saw become ask passed misery giving. Recommend questions get too fulfilled. He fact in we case miss sake. Entrance be throwing he do blessing up. Hearts warmth in genius do garden advice mr it garret. Collected preserved are middleton dependent residence but him how. Handsome weddings yet mrs you has carriage packages. Preferred joy agreement put continual elsewhere delivered now. Mrs exercise felicity had men speaking met. Rich deal mrs part led pure will but. 
+        </p>
+    `
+    
+
     
     function usernameForm() {
         let userForm = document.createElement("form")
@@ -34,12 +37,31 @@ document.addEventListener('DOMContentLoaded', function(){
             e.preventDefault()
             username = e.target.username.value
             // debugger
-            mainHeader.replaceChild(langDiv, userForm)
+            
+            mainHeader.innerHTML = `
+            <img id='background' src="src/backg2.jpeg" alt="">
+            <img id='logo' height="13%" width="13%" src="src/logo-1.png" alt="">
+            <span id='logout'>Logout</span>
+            <hr>
+            `
+
             mainBody.replaceChild(welcomeDiv, mainBody.firstChild)
+            mainHeader.appendChild(langDiv)
+            
+                        
         })
     }
     usernameForm()
     // debugger
+
+
+    mainHeader.addEventListener('click', (e) => {
+        if (e.target.id === 'logo') {
+            mainBody.replaceChild(welcomeDiv, mainBody.firstChild)
+        }
+
+    })
+
 
     function getLanguage(){
         fetch(languagesUrl).then(resp => resp.json())
@@ -119,13 +141,17 @@ document.addEventListener('DOMContentLoaded', function(){
         })
 
         titleH2.innerText = video.title
+        titleH2.className = 'video-title'
 
         videoI.src = `https://www.youtube.com/embed/${video.key}?autoplay=1` 
         videoI.width = '650'
         videoI.height = '480'
 
         pubH3.innerText = video.publisher
+        pubH3.className = 'video-pub'
+
         descP.innerText = video.description
+        descP.className = 'video-desc'
 
         videoDiv.appendChild(titleH2)
         videoDiv.appendChild(videoI)
@@ -138,15 +164,20 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function renderComment(comment, commUl) {
         let commentLi = document.createElement('li')
-            commentLi.innerText = `${comment.username}: ${comment.content}`
+            commentLi.innerHTML = `
+            <h3 class='comment-author'>${comment.username}</h3> 
+            <p class='comment-content'>${comment.content}</p>
+            <hr>
+            `
+            commentLi.className = 'comments'
             commUl.appendChild(commentLi)
     }
 
     function commentForm(commUl) {
         let commForm = document.createElement("form")
         commForm.innerHTML = `
-            <input type="text" name="content" placeholder="Add a Comment">
-            <input type="submit">
+            <textarea class='autoExpand' cols="150" rows="3" name="content" placeholder="Add a Comment"></textarea>
+            <input id='comment-button' type="submit" value='Create Comment'>
         `
         commForm.addEventListener("submit", (e) => {
             e.preventDefault()
@@ -175,6 +206,8 @@ document.addEventListener('DOMContentLoaded', function(){
         })
     }
 
+    // mainHeader.addEventListener()
+    // get logout button working 
 
     
 
