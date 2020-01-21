@@ -130,3 +130,65 @@ textarea{
     
 
 }
+
+.delete-btn {
+    /* display: inline-block; */
+    float: right;
+    border: 2px solid red;
+    border-radius: 8px;
+    font-size: 1em;
+    color: red;
+    background-color: transparent;
+    
+}
+
+.comment-hr {
+    margin-top: 20px;
+}
+
+#submit-video {
+    position: absolute;
+    top: 20px;
+    right: 150px;
+    font-size: 2em;
+}
+
+#break {
+    color: rgb(35, 54, 66);
+    position: absolute;
+    top: 20px;
+    right: 135px;
+    font-size: 2em;
+}
+
+.new-video-header {
+    font-size: 3em;
+    margin: auto;
+    text-align: center;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+
+.video-form {
+    display: block;
+    box-sizing: padding-box;
+    overflow: hidden;
+  
+    padding-top: 10px;
+    font-size: 14px;
+    margin: 15px auto;
+    border-radius: 6px;
+    box-shadow: 2px 2px 8px rgba(black, .3);
+    border: 0;
+    width: 30em;
+}
+
+#video-submit-btn {
+    display: block;
+    margin: auto;
+    border: 2px solid #f5f2d0;
+    border-radius: 8px;
+    font-size: 1em;
+    color: #f5f2d0;
+    background-color: transparent;
+}
