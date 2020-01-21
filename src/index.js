@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function(){
         let langSpan = document.createElement('span')
         langSpan.id = language.name
         langSpan.dataset.id = language.id
-        langSpan.innerText = `     ${language.name}     `
+        langSpan.innerText = `${language.name}`
         langDiv.appendChild(langSpan)
 
         langSpan.addEventListener('click', function(e){
@@ -206,8 +206,12 @@ document.addEventListener('DOMContentLoaded', function(){
         })
     }
 
-    // mainHeader.addEventListener()
-    // get logout button working 
+    mainHeader.addEventListener("click", (e) => {
+        if (e.target.id === "logout") {
+            username = window.prompt("Enter Username")
+        }
+    })
+   
 
     
 
