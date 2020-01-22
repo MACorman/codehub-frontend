@@ -24,6 +24,7 @@ function listVideos(video, videoUl) {
     videoLi.appendChild(pubH4)
     videoLi.appendChild(descP)
 
+    titleH3.className = "list-titles"
     titleH3.dataset.id = video.id 
 
     videoUl.appendChild(videoLi)
