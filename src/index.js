@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function(){
         <h3 id='wel-message'>CodeHub</h3>
         <h4 class="slogan">Fifteen minutes could teach you fifteen percent or more.</h4>
         <p class='block-text'> 
-            His having within saw become ask passed misery giving. Recommend questions get too fulfilled. He fact in we case miss sake. Entrance be throwing he do blessing up. Hearts warmth in genius do garden advice mr it garret. Collected preserved are middleton dependent residence but him how. Handsome weddings yet mrs you has carriage packages. Preferred joy agreement put continual elsewhere delivered now. Mrs exercise felicity had men speaking met. Rich deal mrs part led pure will but. 
+            We at CodeHub envision a world where anyone and everyone can learn to code by increasing the accessibility to coding tutorials. We empower our users to advance their careers, further their knowledge, and change the world. We believe education can unlock your potential and help you become your best self.
         </p>
     `
     
@@ -28,28 +28,32 @@ document.addEventListener('DOMContentLoaded', function(){
     function usernameForm() {
         let userForm = document.createElement("form")
         userForm.innerHTML = `
-        <input type="text" name="username" placeholder="Username">
+        <input type="text" name="username" placeholder="Username" required>
         <input type="submit" value="Enter Website"> 
         `
         mainHeader.appendChild(userForm)
 
         userForm.addEventListener("submit", (e) => {
             e.preventDefault()
-            username = e.target.username.value
-            // debugger
-            
-            mainHeader.innerHTML = `
-            <img id='background' src="src/backg2.jpeg" alt="">
-            <img id='logo' height="13%" width="13%" src="src/logo-1.png" alt="">
-            <span id='submit-video'>Submit Video</span>
-            <span id='break'> | </span>
-            <span id='logout'>Logout</span>
-            <hr>
-            `
+            if (e.target.username.value != " ") {
+                // console.log(e.target.username.value) 
+                username = e.target.username.value
+                // debugger
+                
+                mainHeader.innerHTML = `
+                <img id='background' src="src/backg2.jpeg" alt="">
+                <img id='logo' height="13%" width="13%" src="src/logo-1.png" alt="">
+                <span id='submit-video'>Submit Video</span>
+                <span id='break'> | </span>
+                <span id='logout'>Change User</span>
+                <hr>
+                `
 
-            mainBody.replaceChild(welcomeDiv, mainBody.firstChild)
-            mainHeader.appendChild(langDiv)
-            
+                mainBody.replaceChild(welcomeDiv, mainBody.firstChild)
+                mainHeader.appendChild(langDiv)
+            }
+                
+                
                         
         })
     }
@@ -87,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
         })
+
     }
 
     function getVideos(id, videoUl) {
@@ -230,7 +235,13 @@ document.addEventListener('DOMContentLoaded', function(){
     mainHeader.addEventListener("click", (e) => {
         if (e.target.id === "logout") {
             username = window.prompt("Enter Username")
-            mainBody.replaceChild(welcomeDiv, mainBody.firstChild)
+            if (username === "") {
+                username = window.prompt("Please enter a valid username")
+            } else if (username === " "){ 
+                username = window.prompt("Please enter a valid username")
+            } else {
+                mainBody.replaceChild(welcomeDiv, mainBody.firstChild)
+            }
         }
         else if (e.target.id === "submit-video") {
             submitVidForm()
@@ -304,6 +315,7 @@ document.addEventListener('DOMContentLoaded', function(){
         let videoSubmit = document.createElement("input")
         videoSubmit.id = "video-submit-btn"
         videoSubmit.type = "submit"
+        videoSubmit.value = "Submit Video"
         videoForm.append(videoSubmit)
         formContainer.append(submitMessage)  
         formContainer.append(videoForm)
