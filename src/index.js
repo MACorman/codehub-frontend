@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function(){
         <h3 id='wel-message'>CodeHub</h3>
         <h4 class="slogan">Fifteen minutes could teach you fifteen percent or more.</h4>
         <p class='block-text'> 
-            His having within saw become ask passed misery giving. Recommend questions get too fulfilled. He fact in we case miss sake. Entrance be throwing he do blessing up. Hearts warmth in genius do garden advice mr it garret. Collected preserved are middleton dependent residence but him how. Handsome weddings yet mrs you has carriage packages. Preferred joy agreement put continual elsewhere delivered now. Mrs exercise felicity had men speaking met. Rich deal mrs part led pure will but. 
+            We at CodeHub envision a world where anyone and everyone can learn to code by increasing the accessibility to coding tutorials. We empower our users to advance their careers, further their knowledge, and change the world. We believe education can unlock your potential and help you become your best self.
         </p>
     `
     
@@ -28,26 +28,32 @@ document.addEventListener('DOMContentLoaded', function(){
     function usernameForm() {
         let userForm = document.createElement("form")
         userForm.innerHTML = `
-        <input type="text" name="username" placeholder="Username">
+        <input type="text" name="username" placeholder="Username" required>
         <input type="submit" value="Enter Website"> 
         `
         mainHeader.appendChild(userForm)
 
         userForm.addEventListener("submit", (e) => {
             e.preventDefault()
-            username = e.target.username.value
-            // debugger
-            
-            mainHeader.innerHTML = `
-            <img id='background' src="src/backg2.jpeg" alt="">
-            <img id='logo' height="13%" width="13%" src="src/logo-1.png" alt="">
-            <span id='logout'>Logout</span>
-            <hr>
-            `
+            if (e.target.username.value != " ") {
+                // console.log(e.target.username.value) 
+                username = e.target.username.value
+                // debugger
+                
+                mainHeader.innerHTML = `
+                <img id='background' src="src/backg2.jpeg" alt="">
+                <img id='logo' height="13%" width="13%" src="src/logo-1.png" alt="">
+                <span id='submit-video'>Submit Video</span>
+                <span id='break'> | </span>
+                <span id='logout'>Change User</span>
+                <hr>
+                `
 
-            mainBody.replaceChild(welcomeDiv, mainBody.firstChild)
-            mainHeader.appendChild(langDiv)
-            
+                mainBody.replaceChild(welcomeDiv, mainBody.firstChild)
+                mainHeader.appendChild(langDiv)
+            }
+                
+                
                         
         })
     }
@@ -85,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
         })
+
     }
 
     function getVideos(id, videoUl) {
@@ -164,13 +171,32 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function renderComment(comment, commUl) {
         let commentLi = document.createElement('li')
+            commentLi.dataset.id = comment.id
             commentLi.innerHTML = `
             <h3 class='comment-author'>${comment.username}</h3> 
-            <p class='comment-content'>${comment.content}</p>
-            <hr>
+            <span class='comment-content'>${comment.content}</span>
             `
             commentLi.className = 'comments'
             commUl.appendChild(commentLi)
+
+            if (username === comment.username) {
+               let deleteBtn = document.createElement("button")
+               deleteBtn.className = "delete-btn"
+               deleteBtn.innerText = "Delete"
+               commentLi.appendChild(deleteBtn)
+               
+            }
+            let hr = document.createElement("hr")
+            hr.className = "comment-hr"
+            commentLi.appendChild(hr)
+            
+
+            commentLi.addEventListener("click", (e) => {
+                if (e.target.className === "delete-btn") {
+                    let commentId = parseInt(e.target.parentNode.dataset.id)
+                    deleteComment(commentLi, commentId)
+                }
+            })
     }
 
     function commentForm(commUl) {
@@ -209,8 +235,122 @@ document.addEventListener('DOMContentLoaded', function(){
     mainHeader.addEventListener("click", (e) => {
         if (e.target.id === "logout") {
             username = window.prompt("Enter Username")
+            if (username === "") {
+                username = window.prompt("Please enter a valid username")
+            } else if (username === " "){ 
+                username = window.prompt("Please enter a valid username")
+            } else {
+                mainBody.replaceChild(welcomeDiv, mainBody.firstChild)
+            }
+        }
+        else if (e.target.id === "submit-video") {
+            submitVidForm()
         }
     })
+
+    function deleteComment(commentLi, commentId) {
+        fetch(`${commentsUrl}/${commentId}`, {
+            method: "DELETE"
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            commentLi.remove() 
+        })
+    }
+
+    function submitVidForm() {
+
+        let formContainer = document.createElement("div")
+        
+        let submitMessage = document.createElement("h2")
+        submitMessage.className = "new-video-header"
+        submitMessage.innerText = "Submit New Video"
+
+        let videoForm = document.createElement("form")
+
+        let titleInput = document.createElement("input")
+        titleInput.className = "video-form"
+        titleInput.type = "text"
+        titleInput.placeholder = "Title"
+        titleInput.name = "title"
+
+
+        let pubInput = document.createElement("input")
+        pubInput.className = "video-form"
+        pubInput.type = "text"
+        pubInput.placeholder = "Publisher"
+        pubInput.name = "publisher"
+
+        let descInput = document.createElement("input")
+        descInput.className = "video-form"
+        descInput.type = "text"
+        descInput.placeholder = "Description"
+        descInput.name = "description"
+
+        let keyInput = document.createElement("input")
+        keyInput.className = "video-form"
+        keyInput.type = "text"
+        keyInput.placeholder = "Key"
+        keyInput.name = "key"
+        
+        let langSelect = document.createElement("select")
+        langSelect.className = "video-form"
+        langSelect.name = "language"
+
+        fetch(languagesUrl).then(resp => resp.json()).then(languages => {
+            languages.map(language => {
+                let langOption = document.createElement("option")
+                langOption.value = language.id
+                langOption.innerText = language.name
+                langSelect.append(langOption)
+            })
+        })
+
+        videoForm.append(titleInput)
+        videoForm.append(pubInput)
+        videoForm.append(descInput)
+        videoForm.append(keyInput)
+        videoForm.append(langSelect)
+        
+        let videoSubmit = document.createElement("input")
+        videoSubmit.id = "video-submit-btn"
+        videoSubmit.type = "submit"
+        videoSubmit.value = "Submit Video"
+        videoForm.append(videoSubmit)
+        formContainer.append(submitMessage)  
+        formContainer.append(videoForm)
+        
+        mainBody.replaceChild(formContainer, mainBody.firstChild)
+
+        videoForm.addEventListener("submit", (e) => {
+            e.preventDefault()
+            let title = e.target.title.value
+            let publisher = e.target.publisher.value
+            let desc = e.target.description.value
+            let key = e.target.key.value
+            let language = parseInt(e.target.language.value)
+
+            let newVideo = {title: title, publisher: publisher, description: desc, key: key, language_id: language}
+
+            fetch(videosUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }, 
+                body: JSON.stringify(newVideo)
+            })
+            .then(resp => resp.json())
+            .then(data => {
+                alert("Video has been submitted.")
+                mainBody.replaceChild(welcomeDiv, mainBody.firstChild)
+            })
+        })
+    }
+
+    
+    
+
    
 
     
