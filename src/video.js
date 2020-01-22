@@ -34,7 +34,6 @@ function listVideos(video, videoUl) {
         mainBody.replaceChild(videoDiv, mainBody.firstChild)
         let vidId = e.target.dataset.id
         getSingleVideo(vidId, videoDiv)
-
     })
 }
 

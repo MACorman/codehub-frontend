@@ -13,7 +13,6 @@ function usernameForm() {
         if (e.target.username.value != " ") {
             // console.log(e.target.username.value) 
             username = e.target.username.value
-            // debugger
             
             mainHeader.innerHTML = `
             <img id='background' src="src/backg2.jpeg" alt="">
@@ -26,9 +25,6 @@ function usernameForm() {
 
             mainBody.replaceChild(welcomeDiv, mainBody.firstChild)
             mainHeader.appendChild(langDiv)
-        }
-            
-            
-                    
+        }              
     })
 }

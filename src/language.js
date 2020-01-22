@@ -2,7 +2,6 @@
 function getLanguage(){
     fetch(languagesUrl).then(resp => resp.json())
     .then(result => result.map(language => createLanguage(language)))
-
 }
 
 // function to create a span from language object with event listener on-click
@@ -19,7 +18,6 @@ function createLanguage(language){
         let id = parseInt(e.target.dataset.id)
         getVideos(id, videoUl)
     })
-
 }
 
 // module.exports = {
