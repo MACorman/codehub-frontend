@@ -5,8 +5,23 @@ html {
 
 #logout {
     position: absolute;
-    top: 20px;
+    top: 25px;
     right: 30px;
+    font-size: 2em;
+}
+
+#submit-video {
+    position: absolute;
+    top: 25px;
+    right: 240px;
+    font-size: 2em;
+}
+
+#break {
+    color: rgb(35, 54, 66);
+    position: absolute;
+    top: 25px;
+    right: 225px;
     font-size: 2em;
 }
 
@@ -146,27 +161,13 @@ textarea{
     margin-top: 20px;
 }
 
-#submit-video {
-    position: absolute;
-    top: 20px;
-    right: 150px;
-    font-size: 2em;
-}
-
-#break {
-    color: rgb(35, 54, 66);
-    position: absolute;
-    top: 20px;
-    right: 135px;
-    font-size: 2em;
-}
-
 .new-video-header {
     font-size: 3em;
     margin: auto;
     text-align: center;
     padding-bottom: 0.5em;
     padding-top: 0.5em;
+    font-weight: 400;
 }
 
 .video-form {
