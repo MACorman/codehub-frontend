@@ -1,62 +1,89 @@
 document.addEventListener('DOMContentLoaded', function(){
+    // let indexScript = document.getElementById('script')
+
+    // let rootScript = document.createElement('script')
+    // rootScript.src = 'src/root.js'
+    // document.head.insertBefore(rootScript, indexScript)
+    
+    // let langScript = document.createElement('script')
+    // langScript.src = 'src/language.js'
+    // document.head.insertBefore(langScript, indexScript)
+    
+    // let videoScript = document.createElement('script')
+    // videoScript.src = 'src/video.js'
+    // document.head.insertBefore(videoScript, indexScript)
+    
+    // let commentScript = document.createElement('script')
+    // commentScript.src = 'src/comment.js'
+    // document.head.insertBefore(commentScript, indexScript)
+
+
     const languagesUrl = "http://localhost:3000/languages"
     const videosUrl = "http://localhost:3000/videos"
     const commentsUrl = "http://localhost:3000/comments"
+
+    // usernames saved when a person enters the website
     let username
 
+    // contains page header (logo, navbar)
     let mainHeader = document.getElementById('header-container')   
+
+    // firstChild is replaced with new information based on action
     let mainBody = document.getElementById('body-container')
 
-    getLanguage()
-
+    // nav-bar of all the languages placed in mainHeader
     let langDiv = document.createElement("div")
     langDiv.id = "nav-bar"
     
-
+    // first mainBody message seen when entering the site
     let welcomeDiv = document.createElement("div")
     welcomeDiv.id = 'welcome-container'
     welcomeDiv.innerHTML = `
-        <h3 id='wel-message'>CodeHub</h3>
-        <h4 class="slogan">Fifteen minutes could teach you fifteen percent or more.</h4>
-        <p class='block-text'> 
-            We at CodeHub envision a world where anyone and everyone can learn to code by increasing the accessibility to coding tutorials. We empower our users to advance their careers, further their knowledge, and change the world. We believe education can unlock your potential and help you become your best self.
-        </p>
+    <h3 id='wel-message'>CodeHub</h3>
+    <h4 class="slogan">Fifteen minutes could teach you fifteen percent or more.</h4>
+    <p class='block-text'> 
+    We at CodeHub envision a world where anyone and everyone can learn to code by increasing the accessibility to coding tutorials. We empower our users to advance their careers, further their knowledge, and change the world. We believe education can unlock your potential and help you become your best self.
+    </p>
     `
-    
 
     
-    function usernameForm() {
-        let userForm = document.createElement("form")
-        userForm.innerHTML = `
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="submit" value="Enter Website"> 
-        `
-        mainHeader.appendChild(userForm)
+    // invoking the fetch of languages and rendering
+    getLanguage()
 
-        userForm.addEventListener("submit", (e) => {
-            e.preventDefault()
-            if (e.target.username.value != " ") {
-                // console.log(e.target.username.value) 
-                username = e.target.username.value
-                // debugger
+    // // function to render a username input at root/ appends form to main header
+    // function usernameForm() {
+    //     let userForm = document.createElement("form")
+    //     userForm.innerHTML = `
+    //     <input type="text" name="username" placeholder="Username" required>
+    //     <input type="submit" value="Enter Website"> 
+    //     `
+    //     mainHeader.appendChild(userForm)
+
+    //     // on submission replaces current mainheader and mainbody with logo/navbar and welcomeDiv
+    //     userForm.addEventListener("submit", (e) => {
+    //         e.preventDefault()
+    //         if (e.target.username.value != " ") {
+    //             // console.log(e.target.username.value) 
+    //             username = e.target.username.value
+    //             // debugger
                 
-                mainHeader.innerHTML = `
-                <img id='background' src="src/backg2.jpeg" alt="">
-                <img id='logo' height="13%" width="13%" src="src/logo-1.png" alt="">
-                <span id='submit-video'>Submit Video</span>
-                <span id='break'> | </span>
-                <span id='logout'>Change User</span>
-                <hr>
-                `
+    //             mainHeader.innerHTML = `
+    //             <img id='background' src="src/backg2.jpeg" alt="">
+    //             <img id='logo' height="13%" width="13%" src="src/logo-1.png" alt="">
+    //             <span id='submit-video'>Submit Video</span>
+    //             <span id='break'> | </span>
+    //             <span id='logout'>Change User</span>
+    //             <hr>
+    //             `
 
-                mainBody.replaceChild(welcomeDiv, mainBody.firstChild)
-                mainHeader.appendChild(langDiv)
-            }
+    //             mainBody.replaceChild(welcomeDiv, mainBody.firstChild)
+    //             mainHeader.appendChild(langDiv)
+    //         }
                 
                 
                         
-        })
-    }
+    //     })
+    // }
     usernameForm()
     // debugger
 
@@ -67,170 +94,6 @@ document.addEventListener('DOMContentLoaded', function(){
         }
 
     })
-
-
-    function getLanguage(){
-        fetch(languagesUrl).then(resp => resp.json())
-        .then(result => result.map(language => createLanguage(language)))
-
-    }
-
-    function createLanguage(language){
-        let langSpan = document.createElement('span')
-        langSpan.id = language.name
-        langSpan.dataset.id = language.id
-        langSpan.innerText = `${language.name}`
-        langDiv.appendChild(langSpan)
-
-        langSpan.addEventListener('click', function(e){
-            let videoUl = document.createElement('ul')
-            mainBody.replaceChild(videoUl, mainBody.firstChild)
-            let id = parseInt(e.target.dataset.id)
-            getVideos(id, videoUl)
-              
-
-
-        })
-
-    }
-
-    function getVideos(id, videoUl) {
-        fetch(videosUrl).then(resp => resp.json())
-        .then(result => result.map(video => {
-            if (video.language.id === id) {
-                listVideos(video, videoUl)
-            }
-        }))
-    }
-
-    function listVideos(video, videoUl) {
-        let videoLi = document.createElement('li')
-        let titleH3 = document.createElement('h3')
-        let pubH4 = document.createElement('h4')
-        let descP = document.createElement('p')
-        titleH3.innerText = video.title
-        pubH4.innerText = `Publisher: ${video.publisher}`
-        descP.innerText = video.description
-
-        videoLi.appendChild(titleH3)
-        videoLi.appendChild(pubH4)
-        videoLi.appendChild(descP)
-
-        titleH3.dataset.id = video.id 
-
-        videoUl.appendChild(videoLi)
-
-        titleH3.addEventListener('click', function(e){
-            let videoDiv = document.createElement('div')
-            videoDiv.dataset.id = e.target.dataset.id
-            mainBody.replaceChild(videoDiv, mainBody.firstChild)
-            let vidId = e.target.dataset.id
-            getSingleVideo(vidId, videoDiv)
-
-        })
-    }
-
-
-    function getSingleVideo(id, videoDiv) {
-        fetch(`${videosUrl}/` + id).then(resp => resp.json())
-        .then(video => showVideo(video, videoDiv))
-    }
-
-    function showVideo(video, videoDiv) {
-        let titleH2 = document.createElement('h2')
-        let videoI = document.createElement('iframe')
-        let pubH3 = document.createElement('h3')
-        let descP = document.createElement('p')
-        let commUl = document.createElement('ul')
-
-        video.comments.forEach(comment => {
-            renderComment(comment, commUl)
-        })
-
-        titleH2.innerText = video.title
-        titleH2.className = 'video-title'
-
-        videoI.src = `https://www.youtube.com/embed/${video.key}?autoplay=1` 
-        videoI.width = '650'
-        videoI.height = '480'
-
-        pubH3.innerText = video.publisher
-        pubH3.className = 'video-pub'
-
-        descP.innerText = video.description
-        descP.className = 'video-desc'
-
-        videoDiv.appendChild(titleH2)
-        videoDiv.appendChild(videoI)
-        videoDiv.appendChild(pubH3)
-        videoDiv.appendChild(descP)
-        videoDiv.appendChild(commentForm(commUl))
-        videoDiv.appendChild(commUl)
-
-    }
-
-    function renderComment(comment, commUl) {
-        let commentLi = document.createElement('li')
-            commentLi.dataset.id = comment.id
-            commentLi.innerHTML = `
-            <h3 class='comment-author'>${comment.username}</h3> 
-            <span class='comment-content'>${comment.content}</span>
-            `
-            commentLi.className = 'comments'
-            commUl.appendChild(commentLi)
-
-            if (username === comment.username) {
-               let deleteBtn = document.createElement("button")
-               deleteBtn.className = "delete-btn"
-               deleteBtn.innerText = "Delete"
-               commentLi.appendChild(deleteBtn)
-               
-            }
-            let hr = document.createElement("hr")
-            hr.className = "comment-hr"
-            commentLi.appendChild(hr)
-            
-
-            commentLi.addEventListener("click", (e) => {
-                if (e.target.className === "delete-btn") {
-                    let commentId = parseInt(e.target.parentNode.dataset.id)
-                    deleteComment(commentLi, commentId)
-                }
-            })
-    }
-
-    function commentForm(commUl) {
-        let commForm = document.createElement("form")
-        commForm.innerHTML = `
-            <textarea class='autoExpand' cols="150" rows="3" name="content" placeholder="Add a Comment"></textarea>
-            <input id='comment-button' type="submit" value='Create Comment'>
-        `
-        commForm.addEventListener("submit", (e) => {
-            e.preventDefault()
-            let videoId = e.target.parentNode.dataset.id
-            let commContent = e.target.content.value
-            postComment(username, commContent, videoId, commUl)
-            e.target.reset()
-        })
-
-        return commForm
-    }
-
-    function postComment(username, commContent, id, commUl) {
-        fetch(commentsUrl, {
-            method: "POST", 
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }, 
-            body: JSON.stringify({username: username, content: commContent, video_id: id})
-        })
-        .then(resp => resp.json())
-        .then(comment => {
-            renderComment(comment, commUl)
-
-        })
-    }
 
     mainHeader.addEventListener("click", (e) => {
         if (e.target.id === "logout") {
@@ -248,15 +111,180 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     })
 
-    function deleteComment(commentLi, commentId) {
-        fetch(`${commentsUrl}/${commentId}`, {
-            method: "DELETE"
-        })
-        .then(resp => resp.json())
-        .then(data => {
-            commentLi.remove() 
-        })
-    }
+
+    // function getLanguage(){
+    //     fetch(languagesUrl).then(resp => resp.json())
+    //     .then(result => result.map(language => createLanguage(language)))
+
+    // }
+
+    // function createLanguage(language){
+    //     let langSpan = document.createElement('span')
+    //     langSpan.id = language.name
+    //     langSpan.dataset.id = language.id
+    //     langSpan.innerText = `${language.name}`
+    //     langDiv.appendChild(langSpan)
+
+    //     langSpan.addEventListener('click', function(e){
+    //         let videoUl = document.createElement('ul')
+    //         mainBody.replaceChild(videoUl, mainBody.firstChild)
+    //         let id = parseInt(e.target.dataset.id)
+    //         getVideos(id, videoUl)
+              
+
+
+    //     })
+
+    // }
+
+    // function getVideos(id, videoUl) {
+    //     fetch(videosUrl).then(resp => resp.json())
+    //     .then(result => result.map(video => {
+    //         if (video.language.id === id) {
+    //             listVideos(video, videoUl)
+    //         }
+    //     }))
+    // }
+
+    // function listVideos(video, videoUl) {
+    //     let videoLi = document.createElement('li')
+    //     let titleH3 = document.createElement('h3')
+    //     let pubH4 = document.createElement('h4')
+    //     let descP = document.createElement('p')
+    //     titleH3.innerText = video.title
+    //     pubH4.innerText = `Publisher: ${video.publisher}`
+    //     descP.innerText = video.description
+
+    //     videoLi.appendChild(titleH3)
+    //     videoLi.appendChild(pubH4)
+    //     videoLi.appendChild(descP)
+
+    //     titleH3.dataset.id = video.id 
+
+    //     videoUl.appendChild(videoLi)
+
+    //     titleH3.addEventListener('click', function(e){
+    //         let videoDiv = document.createElement('div')
+    //         videoDiv.dataset.id = e.target.dataset.id
+    //         mainBody.replaceChild(videoDiv, mainBody.firstChild)
+    //         let vidId = e.target.dataset.id
+    //         getSingleVideo(vidId, videoDiv)
+
+    //     })
+    // }
+
+
+    // function getSingleVideo(id, videoDiv) {
+    //     fetch(`${videosUrl}/` + id).then(resp => resp.json())
+    //     .then(video => showVideo(video, videoDiv))
+    // }
+
+    // function showVideo(video, videoDiv) {
+    //     let titleH2 = document.createElement('h2')
+    //     let videoI = document.createElement('iframe')
+    //     let pubH3 = document.createElement('h3')
+    //     let descP = document.createElement('p')
+    //     let commUl = document.createElement('ul')
+
+    //     video.comments.forEach(comment => {
+    //         renderComment(comment, commUl)
+    //     })
+
+    //     titleH2.innerText = video.title
+    //     titleH2.className = 'video-title'
+
+    //     videoI.src = `https://www.youtube.com/embed/${video.key}?autoplay=1` 
+    //     videoI.width = '650'
+    //     videoI.height = '480'
+
+    //     pubH3.innerText = video.publisher
+    //     pubH3.className = 'video-pub'
+
+    //     descP.innerText = video.description
+    //     descP.className = 'video-desc'
+
+    //     videoDiv.appendChild(titleH2)
+    //     videoDiv.appendChild(videoI)
+    //     videoDiv.appendChild(pubH3)
+    //     videoDiv.appendChild(descP)
+    //     videoDiv.appendChild(commentForm(commUl))
+    //     videoDiv.appendChild(commUl)
+
+    // }
+
+    // function renderComment(comment, commUl) {
+    //     let commentLi = document.createElement('li')
+    //         commentLi.dataset.id = comment.id
+    //         commentLi.innerHTML = `
+    //         <h3 class='comment-author'>${comment.username}</h3> 
+    //         <span class='comment-content'>${comment.content}</span>
+    //         `
+    //         commentLi.className = 'comments'
+    //         commUl.appendChild(commentLi)
+
+    //         if (username === comment.username) {
+    //            let deleteBtn = document.createElement("button")
+    //            deleteBtn.className = "delete-btn"
+    //            deleteBtn.innerText = "Delete"
+    //            commentLi.appendChild(deleteBtn)
+               
+    //         }
+    //         let hr = document.createElement("hr")
+    //         hr.className = "comment-hr"
+    //         commentLi.appendChild(hr)
+            
+
+    //         commentLi.addEventListener("click", (e) => {
+    //             if (e.target.className === "delete-btn") {
+    //                 let commentId = parseInt(e.target.parentNode.dataset.id)
+    //                 deleteComment(commentLi, commentId)
+    //             }
+    //         })
+    // }
+
+    // function commentForm(commUl) {
+    //     let commForm = document.createElement("form")
+    //     commForm.innerHTML = `
+    //         <textarea class='autoExpand' cols="150" rows="3" name="content" placeholder="Add a Comment"></textarea>
+    //         <input id='comment-button' type="submit" value='Create Comment'>
+    //     `
+    //     commForm.addEventListener("submit", (e) => {
+    //         e.preventDefault()
+    //         let videoId = e.target.parentNode.dataset.id
+    //         let commContent = e.target.content.value
+    //         postComment(username, commContent, videoId, commUl)
+    //         e.target.reset()
+    //     })
+
+    //     return commForm
+    // }
+
+    // function postComment(username, commContent, id, commUl) {
+    //     fetch(commentsUrl, {
+    //         method: "POST", 
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Accept": "application/json"
+    //         }, 
+    //         body: JSON.stringify({username: username, content: commContent, video_id: id})
+    //     })
+    //     .then(resp => resp.json())
+    //     .then(comment => {
+    //         renderComment(comment, commUl)
+
+    //     })
+    // }
+
+
+    // function deleteComment(commentLi, commentId) {
+    //     fetch(`${commentsUrl}/${commentId}`, {
+    //         method: "DELETE"
+    //     })
+    //     .then(resp => resp.json())
+    //     .then(data => {
+    //         commentLi.remove() 
+    //     })
+    // }
 
     function submitVidForm() {
 
@@ -380,7 +408,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 })
 
-module.exports = {
-    createLanguage: createLanguage
-}
+// module.exports = {
+//     createLanguage: createLanguage
+// }
 
