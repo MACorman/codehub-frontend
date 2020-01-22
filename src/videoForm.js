@@ -1,3 +1,5 @@
+// invoked when click "submit video". Creates input form.
+// Event listener on submit button to post new video to api
 function submitVidForm() {
 
     let formContainer = document.createElement("div")
@@ -36,7 +38,9 @@ function submitVidForm() {
     let langSelect = document.createElement("select")
     langSelect.className = "video-form"
     langSelect.name = "language"
-
+    
+    // drop down in form to select which language video belongs to
+    // fetch languages from api
     fetch(languagesUrl).then(resp => resp.json()).then(languages => {
         languages.map(language => {
             let langOption = document.createElement("option")
@@ -72,6 +76,7 @@ function submitVidForm() {
 
         let newVideo = {title: title, publisher: publisher, description: desc, key: key, language_id: language}
 
+        // post request to persist video to db
         fetch(videosUrl, {
             method: "POST",
             headers: {
