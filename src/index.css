@@ -43,6 +43,10 @@ html {
 
 }
 
+#logo {
+    cursor: pointer;
+}
+
 #nav-bar {
     padding-top: 0.5em;
     width: 100%;
