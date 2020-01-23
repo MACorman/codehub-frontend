@@ -58,6 +58,7 @@ html {
 #nav-bar > span:hover {
     color: rgb(35, 54, 66);
     text-decoration: underline;
+    cursor: pointer;
 }
 
 #wel-message {
@@ -111,6 +112,7 @@ li {
 .list-titles:hover {
     color: rgb(35, 54, 66);
     text-decoration: underline;
+    cursor: pointer;
 }
 
 iframe {
