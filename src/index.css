@@ -13,6 +13,7 @@ html {
 #logout:hover {
     color: rgb(35, 54, 66);
     text-decoration: underline;
+    cursor: pointer;
 }
 
 #submit-video {
@@ -25,6 +26,7 @@ html {
 #submit-video:hover {
     color: rgb(35, 54, 66);
     text-decoration: underline;
+    cursor: pointer;
 }
 
 #break {
