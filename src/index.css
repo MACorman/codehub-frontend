@@ -10,11 +10,21 @@ html {
     font-size: 2em;
 }
 
+#logout:hover {
+    color: rgb(35, 54, 66);
+    text-decoration: underline;
+}
+
 #submit-video {
     position: absolute;
     top: 25px;
     right: 240px;
     font-size: 2em;
+}
+
+#submit-video:hover {
+    color: rgb(35, 54, 66);
+    text-decoration: underline;
 }
 
 #break {
@@ -33,11 +43,21 @@ html {
 
 #nav-bar {
     padding-top: 0.5em;
-    width: fit-content;
+    width: 100%;
+    /* width: fit-content; */
     display: flex;
     justify-content: space-evenly;
     font-size: 1.5em;
     font-weight: 200;
+}
+
+#nav-bar > span {
+    cursor: pointer;
+}
+
+#nav-bar > span:hover {
+    color: rgb(35, 54, 66);
+    text-decoration: underline;
 }
 
 #wel-message {
@@ -86,6 +106,11 @@ li {
     height: 50;
     width: 90%;
     margin: 0 0 10px 0;
+}
+
+.list-titles:hover {
+    color: rgb(35, 54, 66);
+    text-decoration: underline;
 }
 
 iframe {
