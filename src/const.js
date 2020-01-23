@@ -1,6 +1,6 @@
-const languagesUrl = "http://localhost:3000/languages"
-const videosUrl = "http://localhost:3000/videos"
-const commentsUrl = "http://localhost:3000/comments"
+const languagesUrl = "https://dry-tundra-88106.herokuapp.com/languages"
+const videosUrl = "https://dry-tundra-88106.herokuapp.com/videos"
+const commentsUrl = "https://dry-tundra-88106.herokuapp.com/comments"
 
 // usernames saved when a person enters the website
 let username

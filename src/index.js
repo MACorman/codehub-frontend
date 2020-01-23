@@ -29,7 +29,3 @@ document.addEventListener('DOMContentLoaded', function(){
     })
 })
 
-// module.exports = {
-//     createLanguage: createLanguage
-// }
-

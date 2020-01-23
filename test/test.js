@@ -1,11 +1,7 @@
-const myModule = require('../src/language.js');
-let createLanguage = myModule.createLanguage;
+// const myModule = require('../src/language.js');
+// let createLanguage = myModule.createLanguage;
 var chai = require('chai')
 let {assert, expect} = chai
-
-// function createLanguage () {
-//   return "hello"
-// }
 
 describe('Array', function() {
   describe('#indexOf()', function() {
@@ -21,10 +17,16 @@ describe('createLanguage', function() {
   })
 
 
-
-  // it('should return a span element that contains a language name', function() {
-  //   expect(createLanguage({name: "Ruby", id: 3}), 
+  it('should return a span that contains a language name', function() {
+    // console.log(createLanguage({name: "Ruby", id: 3})) 
+    // let element = "span"
+    // assert.equal(obj.tagName, element)
     
-  //   )
-  // })
+  })
+})
+
+describe('getLanguage', function() {
+  it('should fetch the languages from the API and render them', function() {
+    console.log(getLanguage())
+  })
 })
