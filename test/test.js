@@ -1,7 +1,3 @@
-// var assert = require('assert');
-// let path = require('path')
-// let createLanguage = path.resolve(__filename, "../src/index.js")
-// let index = require('src/index.js')
 const myModule = require('../src/language.js');
 let createLanguage = myModule.createLanguage;
 var chai = require('chai')
