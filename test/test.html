@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mocha Tests</title>
+    <!-- <link rel="stylesheet" href="node_modules/mocha/mocha.css"> -->
+  </head>
+  <body>
+    <main id='header-container'>
+        <!-- <marquee><h1 style='color:red'>CodeHub</h1></marquee>  -->
+      </main>
+      
+      <main id='body-container'>
+        
+      </main>
+    <div id="mocha"></div>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+    <script>mocha.setup('bdd')</script>
+    <!-- load code you want to test here -->
+    <script src="../src/const.js"></script>
+    <script src="../src/root.js"></script>
+    <script src="../src/language.js"></script>
+    <script src="../src/video.js"></script>
+    <script src="../src/comment.js"></script>
+    <script src="../src/videoForm.js"></script>
+    <script src="../src/index.js" charset="utf-8"></script>
+    <!-- load your test files here -->
+    <script src="./test.js"></script>
+    <script>
+      mocha.run();
+    </script>
+  </body>
+</html>
