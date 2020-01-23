@@ -8,12 +8,12 @@ html {
     top: 25px;
     right: 30px;
     font-size: 2em;
+    cursor: pointer;
 }
 
 #logout:hover {
     color: rgb(35, 54, 66);
     text-decoration: underline;
-    cursor: pointer;
 }
 
 #submit-video {
@@ -21,13 +21,13 @@ html {
     top: 25px;
     right: 240px;
     font-size: 2em;
+    cursor: pointer;
 }
 
 #submit-video:hover {
     color: rgb(35, 54, 66);
     text-decoration: underline;
-    cursor: pointer;
-}
+}   
 
 #break {
     color: rgb(35, 54, 66);
@@ -60,7 +60,7 @@ html {
 #nav-bar > span:hover {
     color: rgb(35, 54, 66);
     text-decoration: underline;
-    cursor: pointer;
+   
 }
 
 #wel-message {
@@ -114,7 +114,7 @@ li {
 .list-titles:hover {
     color: rgb(35, 54, 66);
     text-decoration: underline;
-    cursor: pointer;
+
 }
 
 iframe {
@@ -128,6 +128,7 @@ iframe {
 .video-title {
     padding-top: 1em;
     text-align: center;
+    cursor: pointer;
 }
 
 .video-pub {
